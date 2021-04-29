@@ -54,7 +54,7 @@ class TictoctoeApplicationTests {
 	}
 
 	@Test
-	void whenMarkerBoundWasOutsideOfBoundThenThrowsAlreadyOccupiedException() {
+	void whenMarkerBoundWasOutsideOfBoundThenThrowsMarkerOutsideBoardException() {
 
 		assertThrows(MarkerOutsideBoardException.class, ()->game.play(4, 4));
 
