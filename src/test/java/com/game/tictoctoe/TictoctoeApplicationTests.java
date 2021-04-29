@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.game.tictoctoe.exception.FirstPlayerException;
 import com.game.tictoctoe.exception.MarkerAlreadyOccupied;
 import com.game.tictoctoe.exception.MarkerOutsideBoardException;
+import com.game.tictoctoe.exception.NextPlayerNotDifferentException;
 import com.game.tictoctoe.model.Game;
 import com.game.tictoctoe.model.Player;
 import com.game.tictoctoe.model.PlayerSymbol;
@@ -39,24 +40,30 @@ class TictoctoeApplicationTests {
 
 	@Test
 	void whenStartGamePlayerXShouldStartFirstTest() {
-		game.setCurrentPlayer(playerO);
-		assertThrows(FirstPlayerException.class, ()->game.play(1, 2));
-
+		// game is empty
+		assertThrows(FirstPlayerException.class, ()->game.play(1, 2, playerO));
 	}
 
 	@Test
 	void whenMarkerBoundWasOcuppiedThenThrowsAlreadyOccupiedException() {
 		game.setCurrentPlayer(playerX);
-		game.play(1,1);
+		game.play(1,1, playerX);
 		game.setCurrentPlayer(playerO);
-		assertThrows(MarkerAlreadyOccupied.class, ()->game.play(1, 1));
+		assertThrows(MarkerAlreadyOccupied.class, ()->game.play(1, 1,playerO));
 
 	}
 
 	@Test
 	void whenMarkerBoundWasOutsideOfBoundThenThrowsMarkerOutsideBoardException() {
 
-		assertThrows(MarkerOutsideBoardException.class, ()->game.play(4, 4));
+		assertThrows(MarkerOutsideBoardException.class, ()->game.play(4, 4,playerX));
+
+	}
+
+	@Test
+	void whenNextPlayerisSameThePreviousThenThrowsNextPlayerNotDifferentException() {
+		game.play(1,1, playerX); // current Player now is playerX 
+		assertThrows(NextPlayerNotDifferentException.class, ()->game.play(2, 2,playerX));
 
 	}
 

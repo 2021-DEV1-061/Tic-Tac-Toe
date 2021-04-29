@@ -1,5 +1,8 @@
 package com.game.tictoctoe.model;
 
+import lombok.Getter;
+
+@Getter
 public enum MarkerValue {
     BLANK( "" ),
     X( "X" ),
