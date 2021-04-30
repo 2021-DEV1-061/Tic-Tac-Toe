@@ -2,6 +2,8 @@ package com.game.tictoctoe.model;
 
 import java.util.Arrays;
 
+import com.game.tictoctoe.enums.MarkerValue;
+
 import lombok.Getter;
 import lombok.Setter;
 

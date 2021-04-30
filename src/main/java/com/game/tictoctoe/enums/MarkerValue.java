@@ -1,4 +1,4 @@
-package com.game.tictoctoe.model;
+package com.game.tictoctoe.enums;
 
 import lombok.Getter;
 

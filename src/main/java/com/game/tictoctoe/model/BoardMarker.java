@@ -1,5 +1,7 @@
 package com.game.tictoctoe.model;
 
+import com.game.tictoctoe.enums.MarkerValue;
+
 import lombok.Getter;
 import lombok.Setter;
 

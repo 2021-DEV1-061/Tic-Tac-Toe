@@ -1,5 +1,11 @@
 package com.game.tictoctoe.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.game.tictoctoe.enums.GameStatus;
+import com.game.tictoctoe.enums.MarkerValue;
+import com.game.tictoctoe.enums.PlayerSymbol;
 import com.game.tictoctoe.exception.FirstPlayerException;
 import com.game.tictoctoe.exception.MarkerAlreadyOccupied;
 import com.game.tictoctoe.exception.MarkerOutsideBoardException;
@@ -12,13 +18,12 @@ import lombok.Setter;
 public class Game {
 
     private Board board;
-    private Player playerX;
-    private Player playerO;
-    private Player currentPlayer;
+    private GameStatus gameStatus = GameStatus.INPROGRESS;
 
-    public Game(Player playerX, Player playerO) {
-        this.playerX = playerX;
-        this.playerO = playerO;
+    // list of players ordered
+    List<Movement> movements = new ArrayList<>();
+
+    public Game() {
         initialize();
     }
 
@@ -30,13 +35,12 @@ public class Game {
             board.reset();
         }
 
-        currentPlayer = null;
     }
 
     /**
-     * play with choose xPosition,yPosition in matrix [xPosition and yPosition are  in {1,2,3} ] 
-     * check if first player is with X symbol
-     * check if next player is different to the previous
+     * play with choose xPosition,yPosition in matrix [xPosition and yPosition are
+     * in {1,2,3} ] check if first player is with X symbol check if next player is
+     * different to the previous
      * 
      * @param xPosition
      * @param yPosition
@@ -58,8 +62,6 @@ public class Game {
      */
     private void fillUpBoard(int xPosition, int yPosition, Player player) {
 
-        currentPlayer = player;
-
         BoardMarker[][] marker = board.getBoardMarkers();
 
         if (!marker[xPosition - 1][yPosition - 1].isEmpty()) {
@@ -70,10 +72,10 @@ public class Game {
 
         // update borad with the new marker
         board.getBoardMarkers()[xPosition - 1][yPosition - 1]
-                .setValue(MarkerValue.valueOf(currentPlayer.getPlayerSymbol().getSymbol()));
+                .setValue(MarkerValue.valueOf(player.getPlayerSymbol().getSymbol()));
 
-        // next player should be different
-        currentPlayer = nextPlayer();
+        // update the list of players movements
+        movements.add(new Movement(player));
 
     }
 
@@ -87,19 +89,17 @@ public class Game {
 
     public void checkFirstPlayer(Player player) {
 
-        if(currentPlayer==null && !player.getPlayerSymbol().equals(PlayerSymbol.PLAYER_X)){
-
-
+        if (movements.isEmpty() && !player.getPlayerSymbol().equals(PlayerSymbol.PLAYER_X)) {
             throw new FirstPlayerException();
-
-
         }
 
     }
 
+    // Compare current playerwith last player in movement list
     public void checkNextPlayer(Player player) {
 
-        if (currentPlayer!=null && !currentPlayer.getPlayerSymbol().equals(player.getPlayerSymbol())) {
+        if (!movements.isEmpty() && movements.get(movements.size() - 1).getPlayer().getPlayerSymbol()
+                .equals(player.getPlayerSymbol())) {
 
             throw new NextPlayerNotDifferentException("Next player shouled be " + player.getPlayerSymbol().getSymbol());
 
@@ -107,17 +107,13 @@ public class Game {
 
     }
 
-    public Player nextPlayer() {
+    /**
+     * check player result
+     * 
+     * @param player
+     */
+    public void checkPlayerResult(Player player) {
 
-        if (currentPlayer.getPlayerSymbol().equals(PlayerSymbol.PLAYER_X)) {
-
-            return playerO;
-
-        }
-        return playerX;
     }
-
-
-    
 
 }
