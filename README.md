@@ -46,9 +46,9 @@ OR
 
 we can use the open swagger api to put directly the
 RequestGamingDto {
-  "playerSymbol": "string",
-  "xposition": 0,
-  "yposition": 0
+  "playerSymbol": "X",
+  "xposition": 1,
+  "yposition": 1
 } and see the response of the api 
 
 The API will respond with the current status of the game :
