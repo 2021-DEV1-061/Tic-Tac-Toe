@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class RequestGamingDto {
 
-    private String playerAlphabet ;
+    private String playerSymbol ;
 
     private Integer xPosition;
     

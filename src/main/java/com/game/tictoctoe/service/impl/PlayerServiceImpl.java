@@ -9,10 +9,17 @@ import com.game.tictoctoe.exception.PlayerNotFoundException;
 import com.game.tictoctoe.model.Player;
 import com.game.tictoctoe.service.PlayerService;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class PlayerServiceImpl implements PlayerService {
 
     private final List<Player> players;
 
+    /** 
+     * Two player will be initialized from the beginning
+     * 
+     */
     public PlayerServiceImpl() {
         players = new ArrayList<>(2);
         players.add(new Player("FIRST_PLAYER", PlayerSymbol.PLAYER_X));
@@ -35,7 +42,7 @@ public class PlayerServiceImpl implements PlayerService {
             return player.get();
 
         }
-        throw new PlayerNotFoundException("Player  not found");
+        throw new PlayerNotFoundException("Player with Symbol "+playerSymbol+" is not found");
 
     }
 

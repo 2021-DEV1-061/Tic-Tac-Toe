@@ -3,18 +3,16 @@ package com.game.tictoctoe.service.impl;
 import com.game.tictoctoe.model.Game;
 import com.game.tictoctoe.model.Player;
 import com.game.tictoctoe.service.GameService;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class GameServiceImpl implements GameService {
 
     private Game game;
 
-    public GameServiceImpl(Game game) {
-
-        this.game = game;
-
+    public GameServiceImpl() {
+        this.game = new Game();
     }
-
     
     /** 
      * @param xPosition

@@ -69,7 +69,7 @@ public class Game {
 
         if (!marker[xPosition - 1][yPosition - 1].isEmpty()) {
 
-            throw new MarkerAlreadyOccupied();
+            throw new MarkerAlreadyOccupied("Marker " + xPosition + "-" + yPosition + " was occupied");
 
         }
 
@@ -85,7 +85,7 @@ public class Game {
     public void checkMarkerBoardPosition(int xPosition, int yPosition) {
 
         if (xPosition < 1 || xPosition > 3 || yPosition < 1 || yPosition > 3) {
-            throw new MarkerOutsideBoardException();
+            throw new MarkerOutsideBoardException("Marker " + xPosition + "-" + yPosition + " outside the bound");
         }
 
     }
@@ -104,8 +104,16 @@ public class Game {
         if (!movements.isEmpty()
                 && movements.get(movements.size() - 1).getPlayer().getPlayerSymbol().equals(player.getPlayerSymbol())) {
 
-            throw new NextPlayerNotDifferentException("Next player shouled be " + player.getPlayerSymbol().getSymbol());
+            if(player.getPlayerSymbol().equals(PlayerSymbol.PLAYER_X)){
+                throw new NextPlayerNotDifferentException(
+                    "Next player shouled be O");
+            }
+            else{
+                throw new NextPlayerNotDifferentException(
+                    "Next player shouled be X");
 
+            }
+         
         }
 
     }
