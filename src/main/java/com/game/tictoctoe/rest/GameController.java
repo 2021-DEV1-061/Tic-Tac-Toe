@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/game")
+@RequestMapping("tic-tac-toe/api")
 public class GameController {
 
     private GameService gameService;
@@ -32,7 +32,7 @@ public class GameController {
      * xPosition [1-2-3] and marker yPosition  [1-2-3]
      * 
      */
-    @RequestMapping(value = "/updateGameState", produces = "application/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/play", produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity<Game> updateGameState(@RequestBody RequestGamingDto requestGamingDto) {
 
         Player player = null;
@@ -56,5 +56,6 @@ public class GameController {
         return new ResponseEntity<Game>(game, HttpStatus.OK);
 
     }
+
 
 }

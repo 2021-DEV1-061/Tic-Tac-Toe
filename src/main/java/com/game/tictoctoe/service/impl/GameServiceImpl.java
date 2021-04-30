@@ -10,6 +10,10 @@ public class GameServiceImpl implements GameService {
 
     private Game game;
 
+    /** 
+     * A game will be intialized by default
+     * 
+     */
     public GameServiceImpl() {
         this.game = new Game();
     }
@@ -25,10 +29,6 @@ public class GameServiceImpl implements GameService {
         return this.game;
     }
 
-    @Override
-    public Game restart() {
-        this.game.initialize();
-        return this.game;
-    }
+  
 
 }

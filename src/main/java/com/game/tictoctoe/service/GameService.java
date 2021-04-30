@@ -7,6 +7,5 @@ public interface GameService {
 
     Game play(int xPosition, int yPosition, Player player);
 
-    Game restart();
 
 }
