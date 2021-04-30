@@ -23,6 +23,8 @@ public class Game {
     // list of players ordered
     List<Movement> movements = new ArrayList<>();
 
+    Player winnerPlayer = null;
+
     public Game() {
         initialize();
     }
@@ -51,6 +53,7 @@ public class Game {
         checkNextPlayer(player);
         checkMarkerBoardPosition(xPosition, yPosition);
         fillUpBoard(xPosition, yPosition, player);
+        checkGameStatus(player);
 
     }
 
@@ -98,8 +101,8 @@ public class Game {
     // Compare current playerwith last player in movement list
     public void checkNextPlayer(Player player) {
 
-        if (!movements.isEmpty() && movements.get(movements.size() - 1).getPlayer().getPlayerSymbol()
-                .equals(player.getPlayerSymbol())) {
+        if (!movements.isEmpty()
+                && movements.get(movements.size() - 1).getPlayer().getPlayerSymbol().equals(player.getPlayerSymbol())) {
 
             throw new NextPlayerNotDifferentException("Next player shouled be " + player.getPlayerSymbol().getSymbol());
 
@@ -108,11 +111,89 @@ public class Game {
     }
 
     /**
-     * check player result
+     * check GameStatus every player's movement
      * 
      * @param player
      */
-    public void checkPlayerResult(Player player) {
+    public GameStatus checkGameStatus(Player player) {
+
+        String playerymbol = player.getPlayerSymbol().getSymbol();
+        BoardMarker[][] marker = board.getBoardMarkers();
+
+        if (marker[0][0].getValue().getText().equals(playerymbol)
+                && marker[0][1].getValue().getText().equals(playerymbol)
+                && marker[0][2].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        } else if (marker[1][0].getValue().getText().equals(playerymbol)
+                && marker[1][1].getValue().getText().equals(playerymbol)
+                && marker[1][2].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        } else if (marker[2][0].getValue().getText().equals(playerymbol)
+                && marker[2][1].getValue().getText().equals(playerymbol)
+                && marker[2][2].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        } else if (marker[0][0].getValue().getText().equals(playerymbol)
+                && marker[1][0].getValue().getText().equals(playerymbol)
+                && marker[2][0].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        } else if (marker[0][1].getValue().getText().equals(playerymbol)
+                && marker[1][1].getValue().getText().equals(playerymbol)
+                && marker[2][1].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        } else if (marker[0][2].getValue().getText().equals(playerymbol)
+                && marker[1][2].getValue().getText().equals(playerymbol)
+                && marker[2][2].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        } else if (marker[0][0].getValue().getText().equals(playerymbol)
+                && marker[1][1].getValue().getText().equals(playerymbol)
+                && marker[2][2].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        } else if (marker[0][2].getValue().getText().equals(playerymbol)
+                && marker[1][1].getValue().getText().equals(playerymbol)
+                && marker[2][0].getValue().getText().equals(playerymbol)) {
+
+            winnerPlayer = player;
+            gameStatus = GameStatus.OVER;
+            return GameStatus.OVER;
+
+        }
+
+        if (movements.size() == 9 && winnerPlayer == null) {
+
+            gameStatus = GameStatus.DRAW;
+            return GameStatus.DRAW;
+
+        }
+
+        return GameStatus.INPROGRESS;
 
     }
 

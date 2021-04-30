@@ -8,14 +8,14 @@ public enum MarkerValue {
     X( "X" ),
     O( "O" );
     
-    private String value;
+    private String text;
     
-    private MarkerValue( String value ) {
-        this.value = value;
+    private MarkerValue( String text ) {
+        this.text = text;
     }
     
     @Override
     public String toString() {
-        return value;
+        return text;
     }
 }
