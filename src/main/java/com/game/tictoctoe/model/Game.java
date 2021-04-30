@@ -29,7 +29,7 @@ public class Game {
         initialize();
     }
 
-    private void initialize() {
+    public void initialize() {
 
         if (board == null) {
             board = new Board();
